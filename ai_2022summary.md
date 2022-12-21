@@ -51,5 +51,6 @@ Casual Inference:
 
 Related topic : AIGC, big model,privacy computing, Gragh and Machine learning
 Industry hot topic: digital transformation
+this is another change
 
       

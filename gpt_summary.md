@@ -17,5 +17,12 @@ bert的解码器也是12层，每一层的维度是768.bert base就是为了和g
 
 ## GPT2 paper language model are unsupervised Multitask Learner
 使用webtext数据集，主要卖点是zero shot
+commoncrawler是一个抓取公开页面的工具
 
 
+## gpt-3 language are few shot learners
+gpt3 不需要做微调和计算梯度
+
+# Multitask learmnimg amd reinforcement learning for personalized dialog generation
+# a empircal study
+the evaluation metric of dialog systems are not used when training the seq2seq model 

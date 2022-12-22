@@ -41,16 +41,33 @@ causality
 
 - TOME generative storytelling text context based on power point  https://beta.tome.app/
 
-GODEL: finetuning phases that require infomration external to the current conversation(e.g., a database or document) to produce good responses
+- GODEL: finetuning phases that require infomration external to the current conversation(e.g., a database or document) to produce good responses
 
 
-Multimodal large model
+Multimodal large model ： many person are talking about, it also has good performance such as stableDiffusion, chatGPT, in China there are also many institution, company realse large scaled models, there performance are good
+recently the industry is focused on if you have a good pretrain model, how to make it best use for subtask for different bussiness scenarios.
+Mutimodel trending : leverage different type of data to improve the subtask, Chinese Academy of Sciences use voice and video data to judge the position of person at night or no enough fiber 
+AI design relted works such as image generation, video generation
+chatGPT and google Lamda almost pass the turing test
+KG
+faiththful with Graphe methdology 
+multiple technology are merged together 
+Graph transformer is hot, diffusion model, how to merge it in Gragh,fake detection and EDA related task, not traditional graph problem, how to sovle it with grah methdology and GNN
+
+vision transformer (ViT)
+deepmind protein remodeling  ai + biology
+
+AI system can be very commonly used, it can do something directly 
+AIGC machine can create, text to picture
 
 Casual Inference:
-
-
 Related topic : AIGC, big model,privacy computing, Gragh and Machine learning
 Industry hot topic: digital transformation
 this is another change
+
+
+## Bottle neck
+data preporcessing and business, same scenario you still do them again and again 
+most ML models are still memory model, it doesn't perform very well on unseen data, how to explain, how to be small and ROI efficient
 
       

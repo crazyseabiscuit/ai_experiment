@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "activity-prediction"
+version = "0.1.0"
+description = ""
+authors = ["Bi Chen <878788+crazyseabiscuit@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+transformers = {extras = ["torch"], version = "^4.35.2"}
+pandas = "^2.1.3"
+tqdm = "^4.66.1"
+ipython = "^8.18.1"
+urllib3 = "<2"
+datasets = "^2.15.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

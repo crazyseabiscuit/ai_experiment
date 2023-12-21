@@ -1,4 +1,5 @@
 from tqdm import tqdm
+from transformers import pipeline
 from accelerate import Accelerator
 from transformers import get_scheduler
 from torch.optim import AdamW
@@ -266,7 +267,6 @@ tokenizer.save_pretrained(output_dir)
 
 
 
-from transformers import pipeline
 device = torch.device("mps")
 pipe = pipeline("text-generation", model="./codeparrot-ds-accelerate", device=device)
 txt = """\

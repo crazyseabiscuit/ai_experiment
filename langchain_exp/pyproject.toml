@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "langchain-exp"
+version = "0.1.0"
+description = ""
+authors = ["Bi Chen <878788+crazyseabiscuit@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langgraph = "^0.0.24"
+dashscope = "^1.19.2"
+ipykernel = "^6.29.4"
+openai = "^1.34.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

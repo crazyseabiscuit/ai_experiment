@@ -1,1 +1,0 @@
-my name is ** i worked in IBM watsom team before I join fidelity, after i join Fidelity i worked in several BU such as Innovation , DMC and Fcat, currently i am worked in PI

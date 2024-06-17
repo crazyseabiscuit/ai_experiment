@@ -1,53 +1,12 @@
-# %%
 import re
+from tavily import TavilyClient
 import httpx
 import os
 from dashscope import Generation
 from http import HTTPStatus
 
-# %%
-from qwen import QOWCaller
 
-client = QOWCaller()
-
-
-# %%
-class Agent:
-    def __init__(self, system=""):
-        self.system = system
-        self.messages = []
-        if self.system:
-            self.messages.append({"role": "system", "content": system})
-
-    def __call__(self, message):
-        self.messages.append({"role": "user", "content": message})
-        result = self.execute()
-        self.messages.append({"role": "assistant", "content": result})
-        return result
-
-    def execute(self):
-        response = Generation.call(
-            model="qwen-max",
-            messages=self.messages,
-            # seed=random.randint(1, 10000),
-            result_format="message",
-            # temperature=0,
-        )
-        if response.status_code != HTTPStatus.OK:
-            print(
-                "Request id: %s, Status code: %s, error code: %s, error message: %s"
-                % (
-                    response.request_id,
-                    response.status_code,
-                    response.code,
-                    response.message,
-                )
-            )
-        return response
-
-
-# %%
-prompt = """
+search_prompt = """
 You run in a loop of Thought, Action, PAUSE, Observation.
 At the end of the loop you output an Answer
 Use Thought to describe your thoughts about the question you have been asked.
@@ -56,70 +15,87 @@ Observation will be the result of running those actions.
 
 Your available actions are:
 
+search_website_query
+e.g. search_website_query: what is the weather like in Dalian
+return the current weather in Dalian
+
 calculate:
 e.g. calculate: 4 * 7 / 3
 Runs a calculation and returns the number - uses Python so be sure to use floating point syntax if necessary
 
-average_dog_weight:
-e.g. average_dog_weight: Collie
-returns average weight of a dog when given the breed
+
 
 Example session:
 
-Question: How much does a Bulldog weigh?
-Thought: I should look the dogs weight using average_dog_weight
-Action: average_dog_weight: Bulldog
+Question: What is the weather like in HangZhou?
+Thought: I should look the weather in HangZhou using search_website_query
+Action: search_website_query: HangZhou
+PAUSE
+Action: search_website_query: HangZhou 
 PAUSE
 
 You will be called again with this:
 
-Observation: A Bulldog weights 51 lbs
+Observation: the The weather in Hangzhou currently is cloudy with a temperature of 22.5°C (72.5°F). The wind speed is 6.8 kph coming from the east-southeast direction. The humidity level is at 76%, and the visibility is 10.0 km. 
 
-You then output:
+You then output: Hangzhou cloudy with a temperature of 22.5°C (72.5°F). The wind speed is 6.8 kph coming from the east-southeast direction. The humidity level is at 76%, and the visibility is 10.0 km.
 
-Answer: A bulldog weights 51 lbs
+Answer: the current weather in Hangzhou is cloudy with a temperature of 22.5°C (72.5°F). The wind speed is 6.8 kph coming from the east-southeast direction. The humidity level is at 76%, and the visibility is 10.0 km.
 """.strip()
 
 
-# %%
 def calculate(what):
     return eval(what)
 
 
-def average_dog_weight(name):
-    if name in "Scottish Terrier":
-        return "Scottish Terriers average 20 lbs"
-    elif name in "Border Collie":
-        return "a Border Collies average weight is 37 lbs"
-    elif name in "Toy Poodle":
-        return "a toy poodles average weight is 7 lbs"
-    else:
-        return "An average dog weights 50 lbs"
+def search_website_query(query):
+    # print("Searching website")
+    # run search
+    result = client.search(query, include_answer=True)
+    # print the answer
+    return result["answer"]
 
 
-known_actions = {"calculate": calculate, "average_dog_weight": average_dog_weight}
+search_known_actions = {
+    "calculate": calculate,
+    "search_website_query": search_website_query,
+}
 
-# %%
-abot = Agent(prompt)
-result = abot("How much does a toy poodle weigh?")
-print(result)
 
-# %% [markdown]
-#
+def query(question, max_turns=5):
+    i = 0
+    bot = Agent(search_prompt)
+    next_prompt = question
+    while i < max_turns:
+        i += 1
+        result = bot(next_prompt)
+        print(result)
+        actions = [action_re.match(a) for a in result.split("\n") if action_re.match(a)]
+        if actions:
+            # There is an action to run
+            action, action_input = actions[0].groups()
+            if action not in search_known_actions:
+                raise Exception("Unknown action: {}: {}".format(action, action_input))
+            print(" -- running {} {}".format(action, action_input))
+            observation = search_known_actions[action](action_input)
+            print("Observation:", observation)
+            next_prompt = "Observation: {}".format(observation)
+        else:
+            return
 
-# %%
 
-result = average_dog_weight("Toy Poodle")
-result
+def get_user_question():
+    return input("Please enter your question: ")
 
-# %%
-next_prompt = "Observation: {}".format(result)
-next_prompt
 
-# %%
-abot(next_prompt)
+# question = """between dalian and hangzhou which weather is better today?"""
+# query(question)
 
-# %%
-abot.messages
 
-# %%
+def main():
+    question = get_user_question()
+    query(question)
+
+
+if __name__ == "__main__":
+    main()

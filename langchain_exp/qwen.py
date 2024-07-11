@@ -46,4 +46,5 @@ class QOWCaller:
 
 if __name__ == "__main__":
     llm = QOWCaller()
-    llm.call_with_messages(msg="今天值得关注的新闻")
+    response = llm.call_with_messages(msg="今天值得关注的经济新闻")
+    print(response.output.choices[0].message["content"])

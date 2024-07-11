@@ -5,43 +5,44 @@ import os
 from dashscope import Generation
 from http import HTTPStatus
 
-
-search_prompt = """
-You run in a loop of Thought, Action, PAUSE, Observation.
-At the end of the loop you output an Answer
-Use Thought to describe your thoughts about the question you have been asked.
-Use Action to run one of the actions available to you - then return PAUSE.
-Observation will be the result of running those actions.
-
-Your available actions are:
-
-search_website_query
-e.g. search_website_query: what is the weather like in Dalian
-return the current weather in Dalian
-
-calculate:
-e.g. calculate: 4 * 7 / 3
-Runs a calculation and returns the number - uses Python so be sure to use floating point syntax if necessary
+from prompt_lib import search_prompt
 
 
+class Agent:
+    def __init__(self, system="", model_name="qwen-max"):
+        self.system = system
+        self.model_name = model_name
+        self.messages = []
+        if self.system:
+            self.messages.append({"role": "system", "content": system})
 
-Example session:
+    def __call__(self, message):
+        self.messages.append({"role": "user", "content": message})
+        result = self.execute()
+        self.messages.append({"role": "assistant", "content": result})
+        return result
 
-Question: What is the weather like in HangZhou?
-Thought: I should look the weather in HangZhou using search_website_query
-Action: search_website_query: HangZhou
-PAUSE
-Action: search_website_query: HangZhou 
-PAUSE
+    def execute(self):
+        response = Generation.call(
+            model=self.model_name,
+            messages=self.messages,
+            result_format="message",
+        )
+        if response.status_code != HTTPStatus.OK:
+            print(
+                "Request id: %s, Status code: %s, error code: %s, error message: %s"
+                % (
+                    response.request_id,
+                    response.status_code,
+                    response.code,
+                    response.message,
+                )
+            )
 
-You will be called again with this:
+        return response.output.choices[0].message.content
 
-Observation: the The weather in Hangzhou currently is cloudy with a temperature of 22.5°C (72.5°F). The wind speed is 6.8 kph coming from the east-southeast direction. The humidity level is at 76%, and the visibility is 10.0 km. 
 
-You then output: Hangzhou cloudy with a temperature of 22.5°C (72.5°F). The wind speed is 6.8 kph coming from the east-southeast direction. The humidity level is at 76%, and the visibility is 10.0 km.
-
-Answer: the current weather in Hangzhou is cloudy with a temperature of 22.5°C (72.5°F). The wind speed is 6.8 kph coming from the east-southeast direction. The humidity level is at 76%, and the visibility is 10.0 km.
-""".strip()
+action_re = re.compile("^Action: (\w+): (.*)$")
 
 
 def calculate(what):
@@ -49,10 +50,8 @@ def calculate(what):
 
 
 def search_website_query(query):
-    # print("Searching website")
-    # run search
+    client = TavilyClient(api_key=os.environ.get("TRAVILY_API_KEY"))
     result = client.search(query, include_answer=True)
-    # print the answer
     return result["answer"]
 
 
@@ -88,13 +87,15 @@ def get_user_question():
     return input("Please enter your question: ")
 
 
-# question = """between dalian and hangzhou which weather is better today?"""
-# query(question)
-
 
 def main():
-    question = get_user_question()
-    query(question)
+    while True:
+        user_input = input("Enter your query (type 'exit' to quit): ")
+        if user_input.lower() == "exit":
+            print("Exiting the program.")
+            break
+
+        query(user_input)
 
 
 if __name__ == "__main__":

@@ -7,6 +7,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+openai = "^1.35.7"
+dashscope = "^1.20.0"
+ipykernel = "^6.29.4"
 
 
 [build-system]

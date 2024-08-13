@@ -31,8 +31,8 @@ ROW_LENGTH = 100
 DENSE_SUBMATRIX = [5, 7, 8, 13, 15, 16, 17, 18, 19, 20]
 MAX_STEPS = ROW_LENGTH - len(DENSE_SUBMATRIX)
 
-REWARD_DEPLETED = -0.1  # item recommended from a depleted cluster (no-op)
-REWARD_UNRATED = -0.05  # item was never rated by this user
+REWARD_DEPLETED = -0.1
+REWARD_UNRATED = -0.05
 
 K_CLUSTERS = 7
 
@@ -52,9 +52,6 @@ class JokeRec(gym.Env):
         self.action_space = spaces.Discrete(K_CLUSTERS)
 
         self.dataset = load_data(config["dataset"])
-
-        # self.cur_pos = 0
-        # self.end_pos = 0
 
     def _warm_start(self):
         sample_size = round(len(self.dense) / 2.0)
@@ -117,15 +114,6 @@ class JokeRec(gym.Env):
         info = {"item": item, "count": self.count, "depleted": self.depleted}
 
         return self._get_state(), reward, done, info, {}
-
-        # if action == 0 and self.cur_pos > 0:  # move right (towards goal)
-        #     self.cur_pos -= 1
-        # elif action == 1:  # move left (towards start)
-        #     self.cur_pos += 1
-        # if self.cur_pos >= self.end_pos:
-        #     return 0, 1.0, True, True, {}
-        # else:
-        #     return self.cur_pos, -0.1, False, False, {}
 
     def render(self, mode="human"):
         last_used = self.used[-10:]

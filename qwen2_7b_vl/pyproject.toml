@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "qwen2-7b-vl"
+version = "0.1.0"
+description = ""
+authors = ["Bi Chen <878788+crazyseabiscuit@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+qwen-vl-utils = "^0.0.4"
+torch = "^2.4.1"
+torchvision = "^0.19.1"
+torchaudio = "^2.4.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

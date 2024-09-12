@@ -46,29 +46,31 @@ prompt_template = FewShotPromptTemplate(
 )
 import os
 
-model = ChatOpenAI(
-    api_key=os.getenv("DASHSCOPE_API_KEY"),
-    base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
-    model="qwen-max",
-    temperature=1,
-    # streaming=True,
+# model = ChatOpenAI(
+#     api_key=os.getenv("DASHSCOPE_API_KEY"),
+#     base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+#     model="qwen-max",
+#     temperature=1,
+#     # streaming=True,
+# )
+from langchain_community.chat_models.tongyi import ChatTongyi
+model = ChatTongyi(model="qwen-turbo")
+
+synthetic_data_generator = create_openai_data_generator(
+    output_schema=MedicalBilling,
+    llm=model,
+    prompt=prompt_template,
 )
 
-# synthetic_data_generator = create_openai_data_generator(
-#     output_schema=MedicalBilling,
-#     llm=model,
-#     prompt=prompt_template,
-# )
-
-# synthetic_results = synthetic_data_generator.generate(
-#     subject="medical_billing",
-#     extra="the name must be chosen at random. Make it something you wouldn't normally choose.",
-#     runs=10,
-# )
-
-from langchain_experimental.synthetic_data import (
-    DatasetGenerator,
-    create_data_generation_chain,
+synthetic_results = synthetic_data_generator.generate(
+    subject="medical_billing",
+    extra="the name must be chosen at random. Make it something you wouldn't normally choose.",
+    runs=10,
 )
-chain = create_data_generation_chain(model)
-chain({"fields": ["type script","code generation",""], "preferences": {}})
+
+# from langchain_experimental.synthetic_data import (
+#     DatasetGenerator,
+#     create_data_generation_chain,
+# )
+# chain = create_data_generation_chain(model)
+# chain({"fields": ["user query","type script","code generation"], "preferences": {"user query for type script code generation"}})

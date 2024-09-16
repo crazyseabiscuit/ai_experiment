@@ -1,0 +1,33 @@
+Query,Intent
+"Create a TypeScript class for a 'Book' with properties 'title', 'author', and 'yearPublished'",TypeScript Code Generation
+"Define an interface 'Address' including 'street', 'city', and 'zipcode'",TypeScript Code Generation
+"Implement a function 'calculateTotal' that sums up an array of numbers",TypeScript Code Generation
+"Show me how to declare a type alias 'ID' as a string",TypeScript Code Generation
+"Create an enum 'OrderStatus' with values 'Pending', 'Shipped', 'Delivered', 'Cancelled'",TypeScript Code Generation
+"Write a generic function 'findItemById' that takes an id and an array, returning the matching item",TypeScript Code Generation
+"I want to see async/await used to fetch data from a REST API",TypeScript Code Generation
+"Provide an example of error handling using a custom error class in TypeScript",TypeScript Code Generation
+"Create a class 'Manager' extending 'Employee' and adding a 'department' property",TypeScript Code Generation
+"Define an interface 'ConfigOptions' with optional 'theme' and 'language'",TypeScript Code Generation
+"Implement a function 'capitalizeFirstLetter' for strings",TypeScript Code Generation
+"Show me a type alias for a tuple of two strings",TypeScript Code Generation
+"Create an enum 'UserRole' with roles 'Admin', 'User', 'Guest'",TypeScript Code Generation
+"Write a generic type 'Nullable<T>' that allows null for any type T",TypeScript Code Generation
+"I need an async function that waits for multiple promises to resolve",TypeScript Code Generation
+"Provide a try-catch block for handling promise rejections",TypeScript Code Generation
+"Create a class 'Shape' with abstract method 'calculateArea'",TypeScript Code Generation
+"Define an interface 'Point2D' with 'x' and 'y' coordinates",TypeScript Code Generation
+"Implement a function 'filterEvenNumbers' that filters out odd numbers from an array",TypeScript Code Generation
+"Show me how to declare a type alias 'RGB' for RGB color values",TypeScript Code Generation
+"Create an enum 'HttpStatusCode' with common status codes",TypeScript Code Generation
+"Write a generic type 'PromiseOrValue<T>' to handle either a promise or a direct value",TypeScript Code Generation
+"I want to see async/await for timeout handling",TypeScript Code Generation
+"Provide a strategy for error propagation in async functions",TypeScript Code Generation
+"Create a class 'BankAccount' with methods 'deposit', 'withdraw', and a private 'balance'",TypeScript Code Generation
+"Define an interface 'EventEmitter' for event-driven programming",TypeScript Code Generation
+"Implement a function 'isPositive' that checks if a number is positive",TypeScript Code Generation
+"Show me a type alias for a dictionary mapping strings to numbers",TypeScript Code Generation
+"Create an enum 'LogLevel' for logging levels like 'Info', 'Warn', 'Error'",TypeScript Code Generation
+"Write a generic function 'reverseArray' to reverse elements of an array",TypeScript Code Generation
+"I need an example of async/await for sequential API calls",TypeScript Code Generation
+"Provide a way to handle multiple error types in a single catch block",TypeScript Code Generation

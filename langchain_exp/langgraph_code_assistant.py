@@ -57,8 +57,8 @@ class code(BaseModel):
 code_gen_chain = llm.with_structured_output(code, include_raw=False)
 
 
-question = "Write a function for fibonacci."
-messages = [("user", question)]
+# question = "Write a function for fibonacci."
+# messages = [("user", question)]
 
 # result = code_gen_chain.invoke(messages)
 # print(f"result: %s" % result)
@@ -254,6 +254,23 @@ builder.add_conditional_edges(
 memory = MemorySaver()
 graph = builder.compile(checkpointer=memory)
 
+# _printed = set()
+# thread_id = str(uuid.uuid4())
+# config = {
+#     "configurable": {
+#         # Checkpoints are accessed by thread_id
+#         "thread_id": thread_id,
+#     }
+# }
+
+
+# question = "Write a Python program that prints 'Hello, World!' to the console."
+# events = graph.stream(
+#     {"messages": [("user", question)], "iterations": 0}, config, stream_mode="values"
+# )
+# for event in events:
+#     _print_event(event, _printed)
+
 
 # _printed = set()
 # thread_id = str(uuid.uuid4())
@@ -264,7 +281,15 @@ graph = builder.compile(checkpointer=memory)
 #     }
 # }
 
-# question = "Write a Python program that prints 'Hello, World!' to the console."
+# question = """Create a Python program that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).
+
+# Requirements:
+# The program should define a function is_palindrome(s) that takes a string s as input.
+# The function should return True if the string is a palindrome and False otherwise.
+# Ignore spaces, punctuation, and case differences when checking for palindromes.
+
+# Give an example of it working on an example input word."""
+
 # events = graph.stream(
 #     {"messages": [("user", question)], "iterations": 0}, config, stream_mode="values"
 # )
@@ -281,14 +306,17 @@ config = {
     }
 }
 
-question = """Create a Python program that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).
+question = """Create a Python program that allows two players to play a game of Tic-Tac-Toe. The game should be played on a 3x3 grid. The program should:
+
+- Allow players to take turns to input their moves.
+- Check for invalid moves (e.g., placing a marker on an already occupied space).
+- Determine and announce the winner or if the game ends in a draw.
 
 Requirements:
-The program should define a function is_palindrome(s) that takes a string s as input.
-The function should return True if the string is a palindrome and False otherwise.
-Ignore spaces, punctuation, and case differences when checking for palindromes.
-
-Give an example of it working on an example input word."""
+- Use a 2D list to represent the Tic-Tac-Toe board.
+- Use functions to modularize the code.
+- Validate player input.
+- Check for win conditions and draw conditions after each move."""
 
 events = graph.stream(
     {"messages": [("user", question)], "iterations": 0}, config, stream_mode="values"

@@ -15,32 +15,7 @@ from typing import Annotated, TypedDict
 
 from langgraph.graph.message import AnyMessage, add_messages
 
-
 import uuid
-
-from langchain_core.pydantic_v1 import BaseModel, Field
-
-
-llm = ChatTongyi(streaming=True, model_name="qwen-plus")
-
-# llm = ChatOllama(
-#     model="llama3.1",
-#     streaming=True,
-# )
-
-
-# Prompt
-code_gen_prompt_claude = ChatPromptTemplate.from_messages(
-    [
-        (
-            "system",
-            """You are a coding assistant. Ensure any code you provide can be executed with all required imports and variables \n
-            defined. Structure your answer: 1) a prefix describing the code solution, 2) the imports, 3) the functioning code block.
-            \n Here is the user question:""",
-        ),
-        ("placeholder", "{messages}"),
-    ]
-)
 
 
 # Data model
@@ -51,17 +26,6 @@ class code(BaseModel):
     imports: str = Field(description="Code block import statements")
     code: str = Field(description="Code block not including import statements")
     description: str = "Schema for code solutions to questions about LCEL."
-
-
-# LLM
-code_gen_chain = llm.with_structured_output(code, include_raw=False)
-
-
-# question = "Write a function for fibonacci."
-# messages = [("user", question)]
-
-# result = code_gen_chain.invoke(messages)
-# print(f"result: %s" % result)
 
 
 class GraphState(TypedDict):
@@ -79,10 +43,6 @@ class GraphState(TypedDict):
     messages: Annotated[list[AnyMessage], add_messages]
     generation: str
     iterations: int
-
-
-### Parameters
-max_iterations = 3
 
 
 ### Nodes
@@ -193,6 +153,9 @@ def code_check(state: GraphState):
 
 ### Conditional edges
 
+### Parameters
+max_iterations = 3
+
 
 def decide_to_finish(state: GraphState):
     """
@@ -234,92 +197,61 @@ def _print_event(event: dict, _printed: set, max_length=1500):
             _printed.add(message.id)
 
 
-builder = StateGraph(GraphState)
-
-# Define the nodes
-builder.add_node("generate", generate)  # generation solution
-builder.add_node("check_code", code_check)  # check code
-
-# Build graph
-builder.add_edge(START, "generate")
-builder.add_edge("generate", "check_code")
-builder.add_conditional_edges(
-    "check_code",
-    decide_to_finish,
-    {
-        "end": END,
-        "generate": "generate",
-    },
-)
-memory = MemorySaver()
-graph = builder.compile(checkpointer=memory)
-
-# _printed = set()
-# thread_id = str(uuid.uuid4())
-# config = {
-#     "configurable": {
-#         # Checkpoints are accessed by thread_id
-#         "thread_id": thread_id,
-#     }
-# }
+llm = ChatTongyi(streaming=True, model_name="qwen-plus")
+# LLM
+code_gen_chain = llm.with_structured_output(code, include_raw=False)
 
 
-# question = "Write a Python program that prints 'Hello, World!' to the console."
-# events = graph.stream(
-#     {"messages": [("user", question)], "iterations": 0}, config, stream_mode="values"
-# )
-# for event in events:
-#     _print_event(event, _printed)
+def main():
+    builder = StateGraph(GraphState)
 
+    # Define the nodes
+    builder.add_node("generate", generate)  # generation solution
+    builder.add_node("check_code", code_check)  # check code
 
-# _printed = set()
-# thread_id = str(uuid.uuid4())
-# config = {
-#     "configurable": {
-#         # Checkpoints are accessed by thread_id
-#         "thread_id": thread_id,
-#     }
-# }
+    # Build graph
+    builder.add_edge(START, "generate")
+    builder.add_edge("generate", "check_code")
+    builder.add_conditional_edges(
+        "check_code",
+        decide_to_finish,
+        {
+            "end": END,
+            "generate": "generate",
+        },
+    )
+    memory = MemorySaver()
+    graph = builder.compile(checkpointer=memory)
 
-# question = """Create a Python program that checks if a given string is a palindrome. A palindrome is a word, phrase, number, or other sequence of characters that reads the same forward and backward (ignoring spaces, punctuation, and capitalization).
-
-# Requirements:
-# The program should define a function is_palindrome(s) that takes a string s as input.
-# The function should return True if the string is a palindrome and False otherwise.
-# Ignore spaces, punctuation, and case differences when checking for palindromes.
-
-# Give an example of it working on an example input word."""
-
-# events = graph.stream(
-#     {"messages": [("user", question)], "iterations": 0}, config, stream_mode="values"
-# )
-# for event in events:
-#     _print_event(event, _printed)
-
-
-_printed = set()
-thread_id = str(uuid.uuid4())
-config = {
-    "configurable": {
-        # Checkpoints are accessed by thread_id
-        "thread_id": thread_id,
+    _printed = set()
+    thread_id = str(uuid.uuid4())
+    config = {
+        "configurable": {
+            # Checkpoints are accessed by thread_id
+            "thread_id": thread_id,
+        }
     }
-}
 
-question = """Create a Python program that allows two players to play a game of Tic-Tac-Toe. The game should be played on a 3x3 grid. The program should:
+    question = """Create a Python program that allows two players to play a game of Tic-Tac-Toe. The game should be played on a 3x3 grid. The program should:
+    
+    - Allow players to take turns to input their moves.
+    - Check for invalid moves (e.g., placing a marker on an already occupied space).
+    - Determine and announce the winner or if the game ends in a draw.
+    
+    Requirements:
+    - Use a 2D list to represent the Tic-Tac-Toe board.
+    - Use functions to modularize the code.
+    - Validate player input.
+    - Check for win conditions and draw conditions after each move."""
 
-- Allow players to take turns to input their moves.
-- Check for invalid moves (e.g., placing a marker on an already occupied space).
-- Determine and announce the winner or if the game ends in a draw.
+    events = graph.stream(
+        {"messages": [("user", question)], "iterations": 0},
+        config,
+        stream_mode="values",
+    )
+    for event in events:
+        _print_event(event, _printed)
 
-Requirements:
-- Use a 2D list to represent the Tic-Tac-Toe board.
-- Use functions to modularize the code.
-- Validate player input.
-- Check for win conditions and draw conditions after each move."""
 
-events = graph.stream(
-    {"messages": [("user", question)], "iterations": 0}, config, stream_mode="values"
-)
-for event in events:
-    _print_event(event, _printed)
+if __name__ == "__main__":
+    main()

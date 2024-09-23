@@ -16,6 +16,10 @@ langchain = "^0.3.0"
 langchain-community = "^0.3.0"
 dashscope = "^1.20.10"
 ipython = "^8.27.0"
+opencv-python = "^4.10.0.84"
+scipy = "^1.14.1"
+scikit-image = "^0.24.0"
+matplotlib = "^3.9.2"
 
 
 

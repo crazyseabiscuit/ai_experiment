@@ -17,6 +17,8 @@ from langgraph.graph.message import AnyMessage, add_messages
 
 import uuid
 
+from prompts import IMAGE_PREPROCESS, Prompt_3D_GAME
+
 
 # Data model
 class code(BaseModel):
@@ -153,9 +155,6 @@ def code_check(state: GraphState):
 
 ### Conditional edges
 
-### Parameters
-max_iterations = 3
-
 
 def decide_to_finish(state: GraphState):
     """
@@ -197,8 +196,10 @@ def _print_event(event: dict, _printed: set, max_length=1500):
             _printed.add(message.id)
 
 
+### Parameters
+max_iterations = 3
 llm = ChatTongyi(streaming=True, model_name="qwen-plus")
-# LLM
+# llm = ChatOllama(model="llama3.1", temperature=0, streaming=True)
 code_gen_chain = llm.with_structured_output(code, include_raw=False)
 
 
@@ -232,17 +233,8 @@ def main():
         }
     }
 
-    question = """Create a Python program that allows two players to play a game of Tic-Tac-Toe. The game should be played on a 3x3 grid. The program should:
-    
-    - Allow players to take turns to input their moves.
-    - Check for invalid moves (e.g., placing a marker on an already occupied space).
-    - Determine and announce the winner or if the game ends in a draw.
-    
-    Requirements:
-    - Use a 2D list to represent the Tic-Tac-Toe board.
-    - Use functions to modularize the code.
-    - Validate player input.
-    - Check for win conditions and draw conditions after each move."""
+    # question = Prompt_3D_GAME
+    question = IMAGE_PREPROCESS 
 
     events = graph.stream(
         {"messages": [("user", question)], "iterations": 0},

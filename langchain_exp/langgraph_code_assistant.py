@@ -1,23 +1,15 @@
 from langchain_core.prompts import ChatPromptTemplate
-
 # from langchain_core.pydantic_v1 import BaseModel, Field
 from pydantic import BaseModel, Field
-from langchain_ollama import ChatOllama
-
-
+# from langchain_ollama import ChatOllama
 from langchain_community.chat_models.tongyi import ChatTongyi
 from langchain_core.messages import HumanMessage
-
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph, START
-
 from typing import Annotated, TypedDict
-
 from langgraph.graph.message import AnyMessage, add_messages
-
 import uuid
-
-from prompts import IMAGE_PREPROCESS, Prompt_3D_GAME
+from prompts import IMAGE_PREPROCESS, Prompt_3D_GAME, AI_NEWS_SUMMARY
 
 
 # Data model
@@ -197,7 +189,7 @@ def _print_event(event: dict, _printed: set, max_length=1500):
 
 
 ### Parameters
-max_iterations = 3
+max_iterations = 5
 llm = ChatTongyi(streaming=True, model_name="qwen-plus")
 # llm = ChatOllama(model="llama3.1", temperature=0, streaming=True)
 code_gen_chain = llm.with_structured_output(code, include_raw=False)
@@ -234,7 +226,7 @@ def main():
     }
 
     # question = Prompt_3D_GAME
-    question = IMAGE_PREPROCESS 
+    question = AI_NEWS_SUMMARY 
 
     events = graph.stream(
         {"messages": [("user", question)], "iterations": 0},

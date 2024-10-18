@@ -31,3 +31,15 @@ Create a python program that preprocess image for OCR image to text tasks.
 - write a main function for the generated code
 
 """
+AI_NEWS_SUMMARY = """
+Create a python program that summary the contents from webpage, the program should:
+
+-- Allows user to config the website address which will be used to parse the contents 
+-- Summary the parsed contents and list them from high priority to low priority
+-- Generate a knowledge graph based on the summary
+-- Show the knowledge graph
+-- Email the summary contents and knowledge graph to a list of configurable email address
+
+
+
+"""

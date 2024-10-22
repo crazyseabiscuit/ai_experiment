@@ -9,7 +9,7 @@ from langgraph.graph import END, StateGraph, START
 from typing import Annotated, TypedDict
 from langgraph.graph.message import AnyMessage, add_messages
 import uuid
-from prompts import IMAGE_PREPROCESS, Prompt_3D_GAME, AI_NEWS_SUMMARY
+from prompts import IMAGE_PREPROCESS, NEW_SCRAPY_PROJECT, Prompt_3D_GAME, AI_NEWS_SUMMARY
 
 
 # Data model
@@ -226,7 +226,7 @@ def main():
     }
 
     # question = Prompt_3D_GAME
-    question = AI_NEWS_SUMMARY 
+    question = NEW_SCRAPY_PROJECT
 
     events = graph.stream(
         {"messages": [("user", question)], "iterations": 0},

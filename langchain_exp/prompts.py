@@ -43,3 +43,10 @@ Create a python program that summary the contents from webpage, the program shou
 
 
 """
+
+NEW_SCRAPY_PROJECT = """
+You are a best python developer, create a python program that crawl website jiqizhixin.com with scrapy and save the result to json file.
+
+
+
+  """

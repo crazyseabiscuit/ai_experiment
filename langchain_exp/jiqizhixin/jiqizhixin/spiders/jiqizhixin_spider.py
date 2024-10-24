@@ -49,23 +49,22 @@ class JiqizhixinSpider(scrapy.Spider):
             else:
                 self.logger.warning(f"Skipping article with no URL. Title: {title}")
 
-        # 处理分页（如果有的话）
         next_page = response.css("a.pagination__next::attr(href)").get()
         if next_page:
             yield scrapy.Request(response.urljoin(next_page), callback=self.parse)
 
-    def closed(self, response):
-        next_page = response.css("a.next::attr(href)").get()
-        if next_page:
-            yield response.follow(next_page, self.parse)
+    # def closed(self, response):
+    #     next_page = response.css("a.next::attr(href)").get()
+    #     if next_page:
+    #         yield response.follow(next_page, self.parse)
 
-    def parse_article(self, response):
-        item = response.meta["item"]
-        content = "".join(response.css(".single-post-content p::text").getall())
-        date = response.css(".post-date::text").get()
-        print(f"Content: {content}, Date: {date}")
+    # def parse_article(self, response):
+    #     item = response.meta["item"]
+    #     content = "".join(response.css(".single-post-content p::text").getall())
+    #     date = response.css(".post-date::text").get()
+    #     print(f"Content: {content}, Date: {date}")
 
-        item["content"] = content
-        item["date"] = date
-        self.collected_items.append(item)
-        yield item
+    #     item["content"] = content
+    #     item["date"] = date
+    #     self.collected_items.append(item)
+    #     yield item

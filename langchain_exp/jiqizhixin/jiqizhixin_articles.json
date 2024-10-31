@@ -25,3 +25,17 @@
 {"title": "朱玉可团队新作：看一眼就能模仿，大模型让机器人轻松学会撒盐", "url": "https://www.jiqizhixin.com/articles/2024-10-23-9", "summary": "在人形机器人领域，有一个非常值钱的问题：既然人形机器人的样子与人类类似，那么它们能使用网络视频等数据进行学习和训练吗？", "author": "机器之心", "date": "2024-10-23 21:04:04 +0800", "category": "工程"},
 {"title": "魔法填充+无限扩图，Ideogram推出AI画板工具Canvas", "url": "https://www.jiqizhixin.com/articles/2024-10-23-8", "summary": "今天是个好日子，至少对 AI 来说是如此。", "author": "机器之心", "date": "2024-10-23 21:00:40 +0800", "category": "产业"}
 ]
+[
+{"title": "锚定行业痛点，讯飞星火深度赋能民生刚需", "url": "https://www.jiqizhixin.com/articles/2024-10-31-15", "summary": "大模型加速赋能行业，科大讯飞发布多领域产品应用", "author": "新闻助手", "date": "2024-10-31 17:23:37 +0800", "category": "产业"},
+{"title": "沉淀·静水流深——机器之心2024年度AI榜单正式启动", "url": "https://www.jiqizhixin.com/articles/2024-10-31-14", "summary": "光而不耀，静水深流。几代科研人员和从业者的探索与沉淀，在 2024 年盛放，写下人工智能发展史上至今最为璀璨的一章。", "author": "机器之心", "date": "2024-10-31 17:08:00 +0800", "category": "产业"},
+{"title": "分类准确率达99%，山大团队提出基于对比学习的基因数据分类方法", "url": "https://www.jiqizhixin.com/articles/2024-10-31-13", "summary": "山东大学的研究人员提出了 DNASimCLR，这是一个专为高效基因序列数据特征提取而设计的无监督框架。", "author": "ScienceAI", "date": "2024-10-31 15:46:46 +0800", "category": "理论"},
+{"title": "登Nature，AI设计DNA开关，MIT团队实现精确的细胞控制", "url": "https://www.jiqizhixin.com/articles/2024-10-31-12", "summary": "杰克逊实验室（JAX，The Jackson Laboratory）、麻省理工学院（MIT）和哈佛大学布罗德研究所以及耶鲁大学的研究人员利用人工智能设计了数千个新的 DNA 开关，可以精确控制基因在不同细胞类型中的表达。他们的新方法开启了控制基因在体内何时何地表达的可能性，以前所未有的方式造福人类健康和医学研究。", "author": "ScienceAI", "date": "2024-10-31 15:45:35 +0800", "category": "理论"},
+{"title": "吉利发布雷神EM-i超级电混，率先将AI技术应用到动力领域", "url": "https://www.jiqizhixin.com/articles/2024-10-31-11", "summary": "全球新一代超级电混。", "author": "新闻助手", "date": "2024-10-31 14:54:21 +0800", "category": "产业"},
+{"title": "百川智能发布一站式解决方案，助力企业“多、快、好、省”落地大模型", "url": "https://www.jiqizhixin.com/articles/2024-10-31-10", "summary": "全链路优质通用训练数据，Baichuan4-Turbo、Baichuan4-Air两款模型和全链路领域增强工具链", "author": "新闻助手", "date": "2024-10-31 14:52:09 +0800", "category": "产业"},
+{"title": "全自动打工「人」！波士顿动力Atlas进厂视频火了，不断电不下班", "url": "https://www.jiqizhixin.com/articles/2024-10-31-9", "summary": "波士顿动力Atlas进厂打工，不靠远程操控，转身动作像惊悚电影。", "author": "机器之心", "date": "2024-10-31 13:25:09 +0800", "category": "产业"},
+{"title": "登上生图排行榜第一的red_panda，是家创业公司，不是国产模型", "url": "https://www.jiqizhixin.com/articles/2024-10-31-8", "summary": "大家别猜了，「red_panda」（小熊猫）模型有主了。", "author": "机器之心", "date": "2024-10-31 13:18:50 +0800", "category": "产业"},
+{"title": "让机器人拥有人一样「潜意识」，英伟达1.5M小模型就能实现通用控制了", "url": "https://www.jiqizhixin.com/articles/2024-10-31-7", "summary": "当机器人也有潜意识。", "author": "机器之心", "date": "2024-10-31 13:16:34 +0800", "category": "产业"},
+{"title": "3D大模型助力，15分钟即可训练高质量、个性化的数字人模型，代码已开放", "url": "https://www.jiqizhixin.com/articles/2024-10-31-6", "summary": "个性化精品数字人（Personalized Talking Face Generation）强调合成的数字人视频在感官上与真人具有极高的相似性（不管是说话人的外表还是神态）。", "author": "机器之心", "date": "2024-10-31 13:10:48 +0800", "category": "工程"},
+{"title": "新视角设计下一代时序基础模型，Salesforce推出Moirai-MoE", "url": "https://www.jiqizhixin.com/articles/2024-10-31-5", "summary": "时间序列预测是人类理解物理世界变化的重要一环。", "author": "机器之心", "date": "2024-10-31 13:07:54 +0800", "category": "工程"},
+{"title": "大模型已过时，小模型SLM才是未来？苹果正在研究这个", "url": "https://www.jiqizhixin.com/articles/2024-10-31", "summary": "手机还是更适合小模型", "author": "机器之心", "date": "2024-10-31 10:18:00 +0800", "category": "理论"}
+]

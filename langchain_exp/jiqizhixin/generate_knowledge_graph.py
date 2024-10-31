@@ -1,23 +1,36 @@
-import json
 from pyvis.network import Network
 import networkx as nx
 import matplotlib.pyplot as plt
-# from matplotlib.font_manager import FontProperties
+import json
 
-# 设置中文字体
+
+
 plt.rcParams["font.sans-serif"] = [
     "Arial Unicode MS",
     "SimHei",
     "DejaVu Sans",
-]  # 优先使用这些字体
+]
 
 plt.rcParams["axes.unicode_minus"] = False  # 用来正常显示负号
-input_file = 'jiqizhixin_articles.json'
-with open(input_file, 'r', encoding='utf-8') as file:
-    data = json.load(file)
+INPUT_FILE = "jiqizhixin_articles.json"
+
+data = []
+with open(INPUT_FILE, "r", encoding="utf-8") as file:
+    for line in file:
+        line = line.strip().rstrip(",")
+        if line and line not in ["[", "]"]:
+            try:
+                json_obj = json.loads(line)
+                if isinstance(json_obj, list):
+                    data.extend(json_obj)
+                else:
+                    data.append(json_obj)
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON: {e}")
 
 
-# 创建一个 Pyvis 网络
+print(f"Total items loaded: {len(data)}")
+
 net = Network(height="750px", width="100%", bgcolor="#222222", font_color="white")
 
 # 添加节点

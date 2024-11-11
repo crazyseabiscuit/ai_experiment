@@ -68,3 +68,4 @@ class JiqizhixinSpider(scrapy.Spider):
     #     item["date"] = date
     #     self.collected_items.append(item)
     #     yield item
+

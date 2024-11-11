@@ -2,7 +2,46 @@ from pyvis.network import Network
 import networkx as nx
 import matplotlib.pyplot as plt
 import json
+from datetime import datetime, timezone, timedelta
+import argparse
 
+
+def parse_cli_args():
+    parser = argparse.ArgumentParser(
+        description="Generate knowledge graph with date filtering"
+    )
+    parser.add_argument(
+        "--start-date", type=str, help="Start date in YYYY-MM-DD format", default=None
+    )
+    parser.add_argument(
+        "--end-date", type=str, help="End date in YYYY-MM-DD format", default=None
+    )
+    return parser.parse_args()
+
+
+def parse_date(date_str):
+    return datetime.strptime(date_str, "%Y-%m-%d %H:%M:%S %z")
+
+
+def filter_by_date(articles, start_date=None, end_date=None):
+    if not start_date and not end_date:
+        return articles
+
+    filtered_data = []
+    for article in articles:
+        article_date = parse_date(article["date"])
+
+        if start_date and end_date:
+            if start_date <= article_date <= end_date:
+                filtered_data.append(article)
+        elif start_date:
+            if article_date >= start_date:
+                filtered_data.append(article)
+        elif end_date:
+            if article_date <= end_date:
+                filtered_data.append(article)
+
+    return filtered_data
 
 
 plt.rcParams["font.sans-serif"] = [
@@ -11,9 +50,9 @@ plt.rcParams["font.sans-serif"] = [
     "DejaVu Sans",
 ]
 
-plt.rcParams["axes.unicode_minus"] = False  # 用来正常显示负号
-INPUT_FILE = "jiqizhixin_articles.json"
+plt.rcParams["axes.unicode_minus"] = False  # 正常显示负号
 
+INPUT_FILE = "jiqizhixin_articles.json"
 data = []
 with open(INPUT_FILE, "r", encoding="utf-8") as file:
     for line in file:
@@ -31,6 +70,26 @@ with open(INPUT_FILE, "r", encoding="utf-8") as file:
 
 print(f"Total items loaded: {len(data)}")
 
+
+def get_date_with_tz(date_str):
+    if not date_str:
+        return None
+    tz = timezone(timedelta(hours=8))  # 设置为东八区
+    date = datetime.strptime(date_str, "%Y-%m-%d")
+    # if "end" in date_str:  # 如果是结束日期，设置为当天最后一秒
+    #     date = date.replace(hour=23, minute=59, second=59)
+    return date.replace(tzinfo=tz)
+
+
+args = parse_cli_args() 
+start_date = get_date_with_tz(args.start_date)
+end_date = get_date_with_tz(args.end_date)
+print(f"Start date: {start_date}, End date: {end_date}")
+
+filtered_data = filter_by_date(data, start_date, end_date)
+print(f"Articles after date filtering: {len(filtered_data)}")
+
+data = filtered_data
 net = Network(height="750px", width="100%", bgcolor="#222222", font_color="white")
 
 # 添加节点

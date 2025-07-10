@@ -1,7 +1,7 @@
 import asyncio
 from typing import List
 from googlesearch import search
-from base import BaseTool
+from app.tool.base import BaseTool
 
 
 class GoogleSearch(BaseTool):

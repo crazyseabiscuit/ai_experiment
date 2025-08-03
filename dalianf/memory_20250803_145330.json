@@ -1,0 +1,45 @@
+{
+  "messages": [
+    {
+      "type": "HumanMessage",
+      "content": "调研主题: LangGraph 在Agent比赛中的应用"
+    },
+    {
+      "type": "AIMessage",
+      "content": "已收集比赛信息: LangGraph Challenge 2024"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "调研主题: LangGraph 在Agent比赛中的应用"
+    },
+    {
+      "type": "AIMessage",
+      "content": "已构建技术架构模型: LangGraph"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "调研主题: LangGraph 在Agent比赛中的应用"
+    },
+    {
+      "type": "AIMessage",
+      "content": "已分析技术解决方案: LangGraphFlow: 基于状态驱动的多Agent协作系统"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "调研主题: LangGraph 在Agent比赛中的应用"
+    },
+    {
+      "type": "AIMessage",
+      "content": "已对比分析解决方案: LangGraphFlow: 基于状态驱动的多Agent协作系统 vs NeuralGraphAgent: 基于知识图谱与强化学习的智能Agent系统"
+    },
+    {
+      "type": "HumanMessage",
+      "content": "调研主题: LangGraph 在Agent比赛中的应用"
+    },
+    {
+      "type": "AIMessage",
+      "content": "已生成技术调研报告: LangGraph 在Agent比赛中的应用"
+    }
+  ],
+  "timestamp": "2025-08-03T14:53:30.187607"
+}

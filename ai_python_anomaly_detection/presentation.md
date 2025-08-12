@@ -1,0 +1,146 @@
+
+# AI-Powered Anomaly Detection
+
+---
+
+### **Slide 1: Title Slide**
+
+**(Title)**
+**AI-Powered Anomaly Detection**
+
+**(Subtitle)**
+A Practical Demonstration with Python
+
+**(Presenter Name)**
+Your Name
+
+**(Date)**
+August 12, 2025
+
+---
+
+### **Slide 2: Agenda**
+
+*   **The Goal:** What is anomaly detection and why is it important?
+*   **Our Approach:** Using AI to automate the detection process.
+*   **The Tools:** A look at the Python libraries we'll use.
+*   **The Data:** Introducing our real-world dataset.
+*   **The Algorithm:** How K-Means clustering works.
+*   **Live Demo:** A step-by-step code walkthrough.
+*   **The Results:** Visualizing the detected anomalies.
+*   **Conclusion & Key Takeaways**
+
+---
+
+### **Slide 3: The Goal: What is Anomaly Detection?**
+
+*   **Definition:** Anomaly detection is the process of identifying data points, events, or observations that deviate significantly from the majority of the data.
+*   **Also Known As:** Outlier detection, novelty detection, or fraud detection.
+*   **Why It Matters:**
+    *   **Business:** Detecting fraudulent transactions, unusual customer behavior, or sudden drops in sales.
+    *   **IT & DevOps:** Identifying system failures, network intrusions, or performance bottlenecks from log and metric data.
+    *   **Manufacturing:** Finding defects in products on an assembly line.
+
+---
+
+### **Slide 4: Our Approach: AI for Automation**
+
+*   **The Challenge:** Manually defining rules to find anomalies is brittle and doesn't scale. What is "unusual" can change over time.
+*   **The AI Solution:** We can train a machine learning model to learn what "normal" behavior looks like from the data itself.
+*   **Our Method:**
+    1.  Give the AI a dataset of time-series data.
+    2.  Use a clustering algorithm (**K-Means**) to group the "normal" data points together.
+    3.  Identify any data points that fall far outside of these normal groups as anomalies.
+
+---
+
+### **Slide 5: The Tools: Our Python Toolkit**
+
+*   **Pandas:** The go-to library for data manipulation and analysis in Python. We'll use it to load and organize our dataset.
+*   **Scikit-learn:** A powerful and easy-to-use machine learning library. It provides our K-Means clustering algorithm.
+*   **Matplotlib:** The most popular library for creating static, animated, and interactive visualizations in Python. We'll use it to plot our results.
+
+---
+
+### **Slide 6: The Data: Numenta Anomaly Benchmark**
+
+*   **Source:** We are using a real-world dataset from the Numenta Anomaly Benchmark (NAB).
+*   **Dataset:** `Twitter_volume_AMZN.csv`
+*   **Content:** This file contains a time-series of the volume of tweets mentioning Amazon (ticker: AMZN).
+*   **Goal with this Data:** To identify moments in time when the tweet volume was unusually high or low compared to the normal pattern.
+
+---
+
+### **Slide 7: The Algorithm: K-Means Clustering**
+
+*   **What it is:** An unsupervised learning algorithm that groups a dataset into a pre-defined number of clusters (the "K").
+*   **How it Works (Simplified):**
+    1.  **Choose K:** You decide how many clusters you want to find.
+    2.  **Initialize Centroids:** The algorithm randomly places K "centroids" (the center of a cluster) in the data.
+    3.  **Assign Points:** Each data point is assigned to its nearest centroid.
+    4.  **Update Centroids:** The centroids are moved to the average location of all the points assigned to them.
+    5.  **Repeat:** Steps 3 and 4 are repeated until the centroids stop moving.
+
+---
+
+### **Slide 8: Using K-Means for Anomaly Detection**
+
+*   **The Core Idea:** "Normal" data points will form dense clusters. Anomalies will be far away from any cluster's center.
+*   **Our Process:**
+    1.  We'll configure K-Means to find a small number of clusters (e.g., K=2) to represent the main patterns of "normal" tweet volume.
+    2.  For every single data point, we calculate its distance to the center of the cluster it was assigned to.
+    3.  We define a "threshold." Any point whose distance from its cluster center is in the top 1% (the 99th percentile) is flagged as an **anomaly**.
+
+---
+
+### **Slide 9: The Code: A High-Level Look**
+
+```python
+# 1. Load the data with pandas
+df = pd.read_csv('NAB_dataset.csv', ...)
+
+# 2. Create and train the K-Means model
+kmeans = KMeans(n_clusters=2, ...)
+df['cluster'] = kmeans.fit_predict(df[['value']])
+
+# 3. Calculate distance from cluster center
+# ... (code to calculate distances) ...
+
+# 4. Identify anomalies based on a threshold
+anomaly_threshold = df['distance_to_center'].quantile(0.99)
+df['anomaly'] = df['distance_to_center'] > anomaly_threshold
+
+# 5. Plot the results with Matplotlib
+plt.scatter(...) # Plot normal points
+plt.scatter(...) # Highlight anomalies in red
+plt.show()
+```
+
+---
+
+### **Slide 10: The Results: Visualizing Anomalies**
+
+**(Here, you would show the `anomaly_detection_plot_kmeans.png` image that was generated by the script.)**
+
+*   This plot shows the entire time series of tweet volume.
+*   The points are colored based on the "normal" cluster they belong to.
+*   The red 'x' markers clearly indicate the points that our K-Means algorithm identified as anomalies—moments of unusually high or low activity.
+
+---
+
+### **Slide 11: Conclusion & Key Takeaways**
+
+*   **AI is Accessible:** With powerful libraries like scikit-learn, implementing sophisticated anomaly detection can be done with very little code.
+*   **Unsupervised Learning is Powerful:** We didn't need to label any data as "anomalous" beforehand. The algorithm learned what was normal on its own.
+*   **Beyond this Example:** This exact technique can be applied to many different problems, from detecting faulty sensors in an IoT network to identifying suspicious user activity on a website.
+*   **The Importance of Tuning:** The effectiveness of the model depends on tuning key parameters, like the number of clusters (K) and the anomaly threshold.
+
+---
+
+### **Slide 12: Thank You & Q&A**
+
+**(Title)**
+**Questions?**
+
+**(Contact Info / Final Remarks)**
+...

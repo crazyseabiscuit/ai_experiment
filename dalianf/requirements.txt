@@ -1,57 +1,125 @@
-# 核心依赖
-langchain>=0.3.3
-langchain-community>=0.3.23
-openai>=1.51.2
-dashscope
-qwen-agent
+# Multi-Agent System Dependencies
 
-# 数据处理
-pandas>=1.5.3
-numpy>=2.2.5
-matplotlib>=3.10.1
-pydantic>=2.9.2
+# Core Framework
+langchain>=0.1.0
+langchain-community>=0.0.20
+langgraph>=0.0.40
 
-# 向量存储和嵌入
-faiss-cpu>=1.9.0
-chromadb
+# LLM Provider
+dashscope>=1.13.6
 
-# 文档处理
-# docling>=2.14.0  # 与 jsonlines 版本冲突
-PyPDF2>=3.0.1
-beautifulsoup4>=4.13.4
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
 
-# Web和API
-fastapi>=0.115.12
-gradio>=5.29.0
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
 
-# 模型训练和优化
-torch>=2.5.1
-transformers>=4.51.3
-datasets>=2.19.1
-# bitsandbytes>=0.45.4  # 在 macOS ARM64 上不兼容
-peft>=0.15.0
-trl>=0.15.2
-# unsloth>=2025.3.19  # 依赖 xformers，在 macOS 上可能有构建问题
-vllm>=0.7.0
+# Database
+sqlite3  # Built-in with Python
 
-# 工具和实用程序
+# HTTP Requests
+requests>=2.31.0
+
+# Data Serialization
+json  # Built-in with Python
+
+# Date/Time Handling
+datetime  # Built-in with Python
+
+# Type Hints
+typing-extensions>=4.5.0
+
+# Logging
+logging  # Built-in with Python
+
+# Async Support
+asyncio  # Built-in with Python
+
+# Threading
+threading  # Built-in with Python
+
+# Path Operations
+pathlib  # Built-in with Python
+
+# Data Classes
+dataclasses  # Built-in with Python
+
+# Enum Support
+enum  # Built-in with Python
+
+# UUID Generation
+uuid  # Built-in with Python
+
+# Base64 Encoding
+base64  # Built-in with Python
+
+# IO Operations
+io  # Built-in with Python
+
+# Math Operations
+math  # Built-in with Python
+
+# Random Generation
+random  # Built-in with Python
+
+# Regular Expressions
+re  # Built-in with Python
+
+# System Operations
+os  # Built-in with Python
+
+# Sys Operations
+sys  # Built-in with Python
+
+# Time Operations
+time  # Built-in with Python
+
+# JSON Operations
+json  # Built-in with Python
+
+# Additional dependencies for enhanced functionality
+pydantic>=2.0.0
+python-dotenv>=1.0.0
 tqdm>=4.66.5
-python-dotenv>=1.0.1
-tiktoken>=0.8.0
-nltk>=3.8.1
-vanna>=0.7.9
-qdrant_client>=1.14.2
-rank-bm25>=0.2.2
-tabulate>=0.9.0
-pyprojroot>=0.3.0
-wandb>=0.19.11
-json5>=0.9.14
-jsonlines>=3.1.0,<4.0.0
-jsonschema>=4.23.0
-diskcache>=5.6.3
-func_timeout>=4.3.5
-ipykernel>=6.29.5
-jieba>=0.42.1
-optimum>=1.24.0
-multiprocess>=0.70.16
-modelscope_studio>=1.2.4
+
+# Optional: For enhanced features
+# Uncomment if needed:
+
+# For web scraping (if implementing real web search)
+# beautifulsoup4>=4.12.0
+# lxml>=4.9.0
+
+# For advanced data analysis
+# scipy>=1.10.0
+# scikit-learn>=1.3.0
+
+# For database alternatives
+# sqlalchemy>=2.0.0
+# psycopg2-binary>=2.9.0  # For PostgreSQL
+
+# For API development
+# fastapi>=0.100.0
+# uvicorn>=0.23.0
+
+# For testing
+# pytest>=7.4.0
+# pytest-asyncio>=0.21.0
+
+# For documentation
+# mkdocs>=1.5.0
+# mkdocs-material>=9.0.0
+
+# For monitoring
+# prometheus-client>=0.17.0
+
+# For caching
+# redis>=4.6.0
+
+# For message queuing
+# celery>=5.3.0
+
+# For web interface
+# streamlit>=1.25.0
+# plotly>=5.15.0
